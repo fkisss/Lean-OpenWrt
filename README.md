@@ -2,7 +2,7 @@
 
 https://github.com/coolsnowwolf/lede
 
-releases3 2024.03.29-2357实际能精简
+releases3 2024.03.29-2357实际未精简
 
 # Actions-OpenWrt
 
