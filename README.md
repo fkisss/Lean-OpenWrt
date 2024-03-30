@@ -2,6 +2,8 @@
 
 https://github.com/coolsnowwolf/lede
 
+releases3 2024.03.29-2357实际能精简
+
 # Actions-OpenWrt
 
 [![LICENSE](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square&label=LICENSE)](https://github.com/P3TERX/Actions-OpenWrt/blob/master/LICENSE)
