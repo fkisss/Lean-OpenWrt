@@ -16,8 +16,14 @@
 # Add a feed source
 #echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
 #echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
-echo 'src-git tailscale https://github.com/tailscale/tailscale-openwrt.git' >> feeds.conf.default
 # 以下自己增加
+
+# 解决 git 认证问题
+git config --global url."https://github.com/".insteadOf git://github.com/
+git config --global http.https://github.com/.proxy ""
+
+# 添加 feeds
+echo 'src-git tailscale https://github.com/tailscale/tailscale-openwrt.git' >> feeds.conf.default
 
 # echo "src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main" >> "feeds.conf.default"
 # echo "src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main" >> "feeds.conf.default"
