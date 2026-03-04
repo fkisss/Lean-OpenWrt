@@ -30,5 +30,7 @@ sed -i '$a src-git smpackage https://github.com/kenzok8/small-package' feeds.con
 ./scripts/feeds update -a
 rm -rf feeds/passwall_packages/shadowsocksr-libev
 rm -rf feeds/smpackage/webd
+rm -rf feeds/passwall_packages/geoview
+
 ./scripts/feeds install -a
 
