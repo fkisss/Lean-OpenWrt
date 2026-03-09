@@ -92,6 +92,10 @@ jobs:
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
+    - name: Use system LLVM for Rust
+      run: |
+       find ./ -type f -path "*/lang/rust/Makefile" -exec sed -i 's/--set=llvm.download-ci-llvm=true/--set=llvm.download-ci-llvm=false --set=llvm.config=\/usr\/bin\/llvm-config/g' {} +
+
     - name: Compile the firmware
       id: compile
       run: |
