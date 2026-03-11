@@ -91,27 +91,20 @@ jobs:
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
-
-    - name: Fix Rust Build Configuration 
-      run: | 
+        
+    - name: Fix Rust Build Configuration
+      run: |
         RUST_MAKEFILE=$(find -L ./openwrt -type f -path "*/lang/rust/Makefile" | head -n 1)
         
-        if [ -z "$RUST_MAKEFILE" ]; then
-            RUST_MAKEFILE=$(find -L /workdir/openwrt -type f -path "*/lang/rust/Makefile" | head -n 1)
+        if [ -n "$RUST_MAKEFILE" ]; then
+          echo "Found Rust Makefile at: $RUST_MAKEFILE"
+          sed -i 's/llvm.download-ci-llvm[[:space:]]*=[[:space:]]*true/llvm.download-ci-llvm=false/g' "$RUST_MAKEFILE"
+          
+          echo "--- Modified Makefile Content (Partial) ---"
+          grep "llvm" "$RUST_MAKEFILE"
+        else
+          echo "Warning: Could not find Rust Makefile, skipping fix."
         fi
-
-        if [ -n "$RUST_MAKEFILE" ]; then 
-            echo "Found Rust Makefile at: $RUST_MAKEFILE" 
-            sed -i 's/llvm.download-ci-llvm[[:space:]]*=[[:space:]]*true/llvm.download-ci-llvm=false/g' "$RUST_MAKEFILE" 
-            sed -i 's/llvm.download-ci-llvm=false/llvm.download-ci-llvm=false --set=llvm.config=\/usr\/bin\/llvm-config/g' "$RUST_MAKEFILE" 
-            echo "--- Modified Makefile Content (Partial) ---" 
-            grep "llvm" "$RUST_MAKEFILE" 
-        else 
-            echo "Error: Could not find Rust Makefile!" 
-            echo "Current directory structure:"
-            ls -R openwrt/package/feeds/packages/lang/rust 2>/dev/null || echo "Rust package directory not found"
-            exit 1 
-        fi 
 
     - name: Compile the firmware
       id: compile
